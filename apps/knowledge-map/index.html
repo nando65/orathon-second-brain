@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Knowledge Map</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header>
+    <div>
+      <h1 id="map-title">Knowledge Map</h1>
+      <div id="inventory" class="muted"></div>
+    </div>
+    <input id="search" type="search" placeholder="Search notes…" />
+  </header>
+
+  <main>
+    <aside>
+      <h2>Categories</h2>
+      <div id="filters"></div>
+      <p class="hint">Select a node to read it. Lines represent explicit local links when resolvable.</p>
+    </aside>
+
+    <section id="canvas-wrap">
+      <svg id="graph" role="img" aria-label="Knowledge graph"></svg>
+    </section>
+
+    <aside id="reader">
+      <div class="reader-head">
+        <h2 id="note-title">Select a note</h2>
+        <button id="close-reader" aria-label="Close reader">×</button>
+      </div>
+      <div id="note-meta" class="muted"></div>
+      <pre id="note-content">Click a node to inspect its content.</pre>
+    </aside>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

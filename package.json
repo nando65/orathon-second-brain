@@ -1,0 +1,11 @@
+{
+  "name": "orathon-second-brain",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "map:build": "node scripts/build-map.mjs",
+    "map:serve": "node scripts/serve-map.mjs",
+    "sync:skills": "node scripts/sync-skills.mjs"
+  }
+}

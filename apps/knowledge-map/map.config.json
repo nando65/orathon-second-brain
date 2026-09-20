@@ -1,0 +1,21 @@
+{
+  "title": "Orathon Knowledge Map",
+  "port": 4747,
+  "sources": [
+    {
+      "id": "workspace",
+      "label": "Core workspace",
+      "paths": ["workspace"]
+    },
+    {
+      "id": "decisions",
+      "label": "Decisions",
+      "paths": ["journal"]
+    },
+    {
+      "id": "workflows",
+      "label": "Workflows",
+      "paths": ["workflows"]
+    }
+  ]
+}

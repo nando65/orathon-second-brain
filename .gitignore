@@ -1,0 +1,11 @@
+.DS_Store
+.env
+.env.*
+captures/*
+!captures/.gitkeep
+reviews/*
+!reviews/.gitkeep
+apps/knowledge-map/data/*
+!apps/knowledge-map/data/.gitkeep
+apps/knowledge-map/map.config.local.json
+node_modules/
