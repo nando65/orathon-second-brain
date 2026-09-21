@@ -81,7 +81,7 @@ orathon-second-brain/
 
 ## Local Knowledge Map
 
-The included 3D map visualizes local Markdown and text files without uploading them to an external service. No external services, API keys, or runtime dependencies are needed.
+The included 3D map visualizes local Markdown and text files without uploading them to an external service. No external services, API keys, or dependency installation are needed. A bundled Markdown parser supports the formatted note reader; switch to Markdown to see the exact source text.
 
 Requires Node.js 20+.
 

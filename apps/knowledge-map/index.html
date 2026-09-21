@@ -52,7 +52,12 @@
       <div class="reader-head"><span id="note-source"></span><button id="close-reader" aria-label="Close reader">×</button></div>
       <h2 id="note-title" tabindex="-1"></h2>
       <div id="note-meta"></div>
-      <pre id="note-content"></pre>
+      <div class="reader-mode" role="group" aria-label="Note display">
+        <button id="view-formatted" aria-pressed="true" aria-controls="note-formatted">Formatted</button>
+        <button id="view-markdown" aria-pressed="false" aria-controls="note-content">Markdown</button>
+      </div>
+      <article id="note-formatted" class="formatted-note" aria-label="Formatted note"></article>
+      <pre id="note-content" aria-label="Markdown source" hidden></pre>
       <section id="connections"><h3>Connected notes</h3><div id="connected-notes"></div></section>
     </aside>
   </main>

@@ -54,10 +54,13 @@ Confirm:
 - cinema mode can be entered and exited,
 - search finds a known note,
 - category filtering works,
-- selecting a node opens its note content; Browse notes also provides keyboard-accessible selection,
+- selecting a node opens its formatted note content; Browse notes also provides keyboard-accessible selection,
+- Formatted / Markdown switches between readable formatting and exact source text, with the choice remembered across notes and reloads when browser storage is available,
 - explicit Markdown links are rendered when their target can be resolved,
 - no source files were modified.
 
 Only indexed files and resolved explicit links count as knowledge. Curved globe/orbit guides are decorative.
+
+Connected services do not automatically populate this file-based map. When the user requests external notes in the map, save verified dated snapshots with original-source links to a local folder, add that folder to the local configuration, and rebuild. Keep the external source authoritative; explain that fetching new snapshots and rebuilding are separate steps. Never copy personal snapshots or source configuration into the public customer template.
 
 If a category is empty, report it honestly. Do not invent knowledge to populate the map.

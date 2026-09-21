@@ -19,6 +19,9 @@ Use the template checkout for release branches and pull requests. A private back
    apps/knowledge-map/styles.css
    apps/knowledge-map/scene.js
    apps/knowledge-map/scene.test.mjs
+   apps/knowledge-map/markdown.js
+   apps/knowledge-map/vendor/marked.js
+   apps/knowledge-map/vendor/marked.LICENSE.md
    apps/knowledge-map/README.md
    ```
 
@@ -31,7 +34,7 @@ Use the template checkout for release branches and pull requests. A private back
    node scripts/serve-map.mjs
    ```
 
-   Verify orbit, zoom, search, filters, note reading, and cinema. Verify link navigation using notes with resolvable links; a starter map may legitimately have no links.
+   Verify orbit, zoom, search, filters, note reading, and cinema. Check Formatted / Markdown switching and preference persistence. Verify link navigation using synthetic notes with resolvable links; a starter map may legitimately have no links. Test that embedded HTML and unsafe URLs remain inert, and that images do not fetch remote resources. Keep temporary test notes outside the release.
 6. Stage only the intended code and documentation paths. Review both `git diff --cached --name-status` and `git diff --cached`. Confirm starter notes and shared configuration are unchanged; no generated data, local configurations, credentials, personal paths, or private content belong in this release.
 7. Commit on the release branch, push it, and open a pull request. Review before merging. New installations get the upgraded template after it reaches the default branch.
 
@@ -49,7 +52,7 @@ This release changes the map UI; it does not migrate or reorganize user data.
 
 1. Back up the existing brain to a private location, including untracked and ignored files. A Git commit alone does not back up ignored captures or generated files.
 2. Download or clone the updated public template into a separate folder after the release is merged.
-3. Compare any local map customizations, then copy only the six map files listed above into the existing brain. Resolve customized code deliberately rather than replacing it blindly.
+3. Compare any local map customizations, then copy only the map files listed above into the existing brain, including the bundled parser and its license. Resolve customized code deliberately rather than replacing it blindly.
 4. Update the knowledge-map skill files in `.claude/skills/knowledge-map/` and `.agents/skills/knowledge-map/` after checking for local skill changes.
 5. Keep the existing shared/local map configuration and all personal notes. Rebuild the map and refresh the browser.
 
