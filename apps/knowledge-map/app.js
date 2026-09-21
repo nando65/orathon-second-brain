@@ -1,4 +1,5 @@
 import { clamp, layoutNodes, project, createOrbits, TAU } from './scene.js';
+import { renderMarkdown } from './markdown.js';
 
 const palette = ['#65d8ff', '#7de2b0', '#f3c471', '#ef99bd', '#b2a4f4', '#81e0d2', '#f4a26e', '#b9df79', '#c991ee', '#9cc7ff'];
 const $ = id => document.getElementById(id);
@@ -10,6 +11,8 @@ const state = { data: null, enabled: new Set(), query: '', selected: null, hover
 const orbits = createOrbits();
 const pointers = new Map();
 let positions, nodeById, degree, frame, lastTime = 0, gesture = null, lastFocus = null;
+let readerMode = 'formatted';
+try { if (localStorage.getItem('knowledge-map-reader-mode') === 'markdown') readerMode = 'markdown'; } catch { /* Storage may be unavailable. */ }
 const stars = Array.from({ length: 170 }, (_, i) => ({ x: random(i * 3 + 1), y: random(i * 3 + 2), r: 0.3 + random(i * 3 + 3) * 0.7 }));
 function random(seed) { const n = Math.sin(seed * 127.1) * 43758.5453; return n - Math.floor(n); }
 function colorFor(id) { return palette[Math.max(0, state.data.sources.findIndex(s => s.id === id)) % palette.length]; }
@@ -57,6 +60,10 @@ function showNode(node) {
   $('note-title').textContent = node.title; $('note-source').textContent = node.sourceLabel;
   $('note-source').style.color = colorFor(node.sourceId);
   $('note-meta').textContent = node.path; $('note-content').textContent = node.content || '(No readable content)';
+  $('note-formatted').replaceChildren(/\.txt$/i.test(node.path)
+    ? Object.assign(document.createElement('pre'), { textContent: node.content || '(No readable content)' })
+    : renderMarkdown(node.content || '(No readable content)', { onNoteLink: href => openNoteLink(node, href) }));
+  setReaderMode(readerMode);
   $('connected-notes').replaceChildren();
   const connections = state.data.edges.filter(e => e.from === node.id || e.to === node.id).map(e => nodeById.get(e.from === node.id ? e.to : e.from)).filter(Boolean);
   for (const other of connections) $('connected-notes').append(noteButton(other));
@@ -64,6 +71,20 @@ function showNode(node) {
   $('reader').hidden = false; $('reader').scrollTop = 0; $('note-title').focus();
   document.body.classList.remove('sources-open'); $('toggle-sources').setAttribute('aria-expanded', 'false');
   renderNoteList(); invalidate();
+}
+function setReaderMode(mode) {
+  readerMode = mode;
+  $('note-formatted').hidden = mode !== 'formatted';
+  $('note-content').hidden = mode !== 'markdown';
+  $('view-formatted').setAttribute('aria-pressed', String(mode === 'formatted'));
+  $('view-markdown').setAttribute('aria-pressed', String(mode === 'markdown'));
+  try { localStorage.setItem('knowledge-map-reader-mode', mode); } catch { /* The toggle still works without storage. */ }
+}
+function openNoteLink(node, href) {
+  let targetPath;
+  try { targetPath = decodeURIComponent(new URL(href, `https://notes.local/${node.path}`).pathname).slice(1); } catch { return; }
+  const target = state.data.nodes.find(candidate => candidate.path === targetPath);
+  if (target) showNode(target);
 }
 function closeReader(restoreFocus = true) {
   $('reader').hidden = true; state.selected = null;
@@ -160,6 +181,8 @@ function bindControls() {
   $('search').addEventListener('input', e => { state.query = e.target.value; refreshVisible(); });
   $('show-labels').addEventListener('change', e => { state.labels = e.target.checked; invalidate(); });
   $('close-reader').addEventListener('click', () => closeReader());
+  $('view-formatted').addEventListener('click', () => setReaderMode('formatted'));
+  $('view-markdown').addEventListener('click', () => setReaderMode('markdown'));
   $('reset-view').addEventListener('click', resetView);
   $('auto-rotate').addEventListener('click', () => { state.velocity = { x: 0, y: 0 }; setAuto(!state.auto); });
   $('zoom-in').addEventListener('click', () => zoom(1.15)); $('zoom-out').addEventListener('click', () => zoom(1/1.15));
