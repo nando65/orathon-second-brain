@@ -81,7 +81,7 @@ orathon-second-brain/
 
 ## Local Knowledge Map
 
-The included map visualizes local Markdown and text files without uploading them to an external service.
+The included 3D map visualizes local Markdown and text files without uploading them to an external service. No external services, API keys, or runtime dependencies are needed.
 
 Requires Node.js 20+.
 
@@ -96,14 +96,21 @@ Then open:
 http://127.0.0.1:4747
 ```
 
-It supports category filters, search, explicit note links, and local note reading.
+Drag to orbit the globe, scroll to zoom, or start **Auto-rotate**. **Cinema** expands the view. Click a glowing note to read it or follow its connections. Category filters, search, keyboard-accessible note browsing, and touch controls are included.
+
+See [the map guide](apps/knowledge-map/README.md) for controls, configuration, and tests.
 
 ## Privacy
 
 - Keep passwords, API keys, and access tokens out of Markdown.
 - `captures/`, `reviews/`, generated map data, and local map configuration are gitignored by default.
+- `workspace/`, `journal/`, and `workflows/` are tracked template files. After personalization, their contents can be private; do not commit them to a public repository. Adding already-tracked files to `.gitignore` does not untrack them.
 - Prefer pointing to authoritative live systems instead of copying large private datasets into this repo.
 - The knowledge-map server binds only to `127.0.0.1`.
+
+## Maintaining the public template
+
+Use a separate clean checkout for template development. Copy only reviewed reusable code from a personal brain, and publish through a pull request. See [Template releases](docs/template-releases.md) for the release process and existing-customer update guidance.
 
 ## Updating skills
 
